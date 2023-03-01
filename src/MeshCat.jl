@@ -62,6 +62,8 @@ export setobject!,
        delete!,
        setprop!,
        setanimation!,
+       setcameraposition!,
+       setcameratarget!,
        save_image,
        setvisible!
 

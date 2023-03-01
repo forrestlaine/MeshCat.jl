@@ -26,6 +26,10 @@ struct SetAnimation{A <: Animation} <: AbstractCommand
     repetitions::Int
 end
 
+struct SetCameraTarget{T <: Real} <: AbstractCommand
+    value::AbstractVector{T}
+end
+
 SetAnimation(anim::Animation; play=true, repetitions=1) = SetAnimation(anim, play, repetitions)
 
 struct SaveImage <: AbstractCommand end

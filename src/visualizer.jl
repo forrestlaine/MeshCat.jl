@@ -92,6 +92,10 @@ function update_tree!(core::CoreVisualizer, cmd::SetTransform, data)
     core.tree[cmd.path].transform = data
 end
 
+function update_tree!(core::CoreVisualizer, cmd::SetCameraTarget, data)
+    nothing
+end
+
 function update_tree!(core::CoreVisualizer, cmd::SetProperty, data)
     core.tree[cmd.path].properties[cmd.property] = data
 end
@@ -257,6 +261,28 @@ $(TYPEDSIGNATURES)
 """
 function save_image(vis::Visualizer)
     send(vis.core, SaveImage())
+    vis
+end
+
+"""
+Sets the camera position to the coordinates, specified in right-hand frame (xyz).
+
+$(TYPEDSIGNATURES)
+"""
+function setcameraposition!(vis::Visualizer, position::AbstractVector)
+    left_hand_pos = [position[1], position[3], -position[2]]
+    path = "/Cameras/default/rotated/<object>"
+    setprop!(vis[path], "position", left_hand_pos)
+end
+
+"""
+Sets the camera position to the coordinates, specificed in right-hand frame (xyz).
+
+$(TYPEDSIGNATURES)
+"""
+function setcameratarget!(vis::Visualizer, position::AbstractVector)
+    left_hand_pos = [position[1], position[3], -position[2]]
+    send(vis.core, SetCameraTarget(left_hand_pos))
     vis
 end
 

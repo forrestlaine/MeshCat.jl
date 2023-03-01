@@ -290,6 +290,13 @@ function lower(cmd::SetTransform)
     )
 end
 
+function lower(cmd::SetCameraTarget)
+    Dict{String, Any}(
+        "type" => "set_target",
+        "value" => cmd.value
+    )
+end
+
 function lower(cmd::Delete)
     Dict{String, Any}(
         "type" => "delete",
